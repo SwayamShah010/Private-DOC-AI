@@ -1,292 +1,517 @@
-# PrivateDocs AI
+# 🔐 PrivateDocs AI
 
-Local-first document intelligence: upload PDFs, index them locally, ask
-questions, get grounded answers with page citations, and generate
-summaries — all without documents ever leaving your machine.
+> A local-first AI document search, question-answering, and summarization system built with RAG.
 
-**Status: Phases 0–11 complete (through Section 15 of the PRD).** The full
-MVP loop works end to end: upload → index → ask → cited answer →
-summarize, with hybrid keyword+semantic retrieval (Phase 8), OCR fallback
-for scanned PDFs (Phase 9), a documented evaluation suite (Phase 10), and
-Docker packaging + a polished repo (Phase 11). All 11 phases from the PRD
-are done.
+PrivateDocs AI lets users upload PDF documents, index them locally, ask natural-language questions, receive source-grounded answers with page citations, and generate document summaries. The project is designed with privacy in mind: documents, embeddings, vector data, and LLM inference can remain on the user's own machine.
 
-![Ask documents tab — mockup](docs/screenshots/ask_documents_mockup.png)
-*This is a mockup built from the real UI code, not a live screen capture —
-this environment has no network access to Ollama or Hugging Face to
-actually run the app. See "Screenshots" below for why, and swap in a real
-capture once you're running it locally.*
+## ✨ Features
 
-### Phase 8: advanced retrieval
+* 📄 PDF upload and text extraction
+* 🧠 Local embeddings using Sentence Transformers
+* 🔎 Semantic vector search
+* 🔤 BM25 keyword search
+* 🔀 Hybrid semantic + keyword retrieval
+* 🎯 Optional cross-encoder reranking
+* 🤖 Retrieval-Augmented Generation (RAG)
+* 📌 Source and page citations
+* 📝 Document summarization
+* 🖼️ OCR support for scanned PDFs
+* 🗂️ Local ChromaDB vector storage
+* 🔒 Local LLM inference using Ollama
+* 🖥️ Streamlit web interface
+* 🧪 Unit and integration testing
+* 📊 RAG evaluation workflow
+* 🐳 Docker support
 
-- **Hybrid search** (on by default, `ENABLE_HYBRID_SEARCH`): every query
-  runs through both semantic (embedding) search and BM25 keyword search,
-  merged with Reciprocal Rank Fusion. This catches exact terms — invoice
-  numbers, names, acronyms — that pure embedding search sometimes blurs
-  past. No extra model or network call.
-- **Cross-encoder reranking** (off by default, `ENABLE_RERANKING`): an
-  optional second pass that re-scores the top hybrid candidates with a
-  more accurate (but slower) cross-encoder model before answering. Turn
-  it on if you have documents where the top-k hybrid results are close
-  calls; it downloads its own small model from Hugging Face on first use.
-- Tunable via `.env`: `TOP_K`, `HYBRID_CANDIDATE_K`, `RRF_K`,
-  `RERANK_CANDIDATE_K` — see `.env.example` for defaults and what each
-  one does.
+## 🏗️ Architecture
 
-### Phase 9: OCR & difficult documents
+```text
+PDF Upload
+    ↓
+Text Extraction / OCR
+    ↓
+Text Chunking
+    ↓
+Sentence Transformer Embeddings
+    ↓
+ChromaDB Vector Store
+    ↓
+Semantic Search + BM25
+    ↓
+Hybrid Retrieval
+    ↓
+Optional Reranking
+    ↓
+RAG Pipeline
+    ↓
+Ollama / Llama 3.1
+    ↓
+Answer + Page Citations
+```
 
-- **Scanned-page detection** (unchanged from Phase 2): a page with no
-  extractable text layer is flagged, then (Phase 9) gets an automatic
-  OCR pass before being counted as genuinely unreadable.
-- **OCR fallback** (on by default, `ENABLE_OCR`): uses PyMuPDF to
-  rasterize the page (no extra system dependency for that part) and
-  Tesseract to read it. Requires the Tesseract engine itself — see
-  Setup step 2a below. If it's not installed, OCR is skipped
-  automatically and you get a clear, actionable error instead of a
-  crash or a silent empty result.
-- **Page references are preserved exactly**: an OCR'd page keeps its
-  real page number, so citations for scanned pages are just as
-  trustworthy as citations for text-layer pages. Verified with a mixed
-  real-text/scanned/real-text document in the test suite.
-- **Known limitation**: Tesseract extracts text linearly - a table
-  becomes a wall of text, not preserved rows/columns. Good enough to
-  find and cite table content, not good enough to reconstruct the
-  table's structure. Multi-column layouts have the same caveat (reading
-  order isn't guaranteed to follow the columns correctly). Tune
-  `OCR_DPI` upward (e.g. 400-600) for small print, at the cost of speed.
-- Tunable via `.env`: `ENABLE_OCR`, `OCR_LANGUAGE`, `OCR_DPI`.
+## 🛠️ Tech Stack
 
-### Phase 10: evaluation
+| Component       | Technology              |
+| --------------- | ----------------------- |
+| Language        | Python                  |
+| UI              | Streamlit               |
+| PDF Processing  | PyMuPDF                 |
+| OCR             | Tesseract + pytesseract |
+| Embeddings      | Sentence Transformers   |
+| Embedding Model | `all-MiniLM-L6-v2`      |
+| Vector Database | ChromaDB                |
+| Keyword Search  | BM25                    |
+| RAG Framework   | LangChain               |
+| Local LLM       | Ollama                  |
+| Default Model   | `llama3.1:8b`           |
+| Testing         | Pytest                  |
+| Packaging       | Docker                  |
 
-- **60 evaluation questions** in `evaluation/dataset/questions.json`
-  against a small synthetic 4-document / 17-page corpus (generated by
-  `evaluation/dataset/generate_dataset.py` — a fictional company's HR
-  policy, product warranty, financial report, and security policy).
-  Every question's ground truth (which document/page contains the
-  answer, and what keywords a correct answer must contain) was
-  cross-checked against the actual generated PDF text, not just written
-  by hand and assumed correct. 35 known-answer questions, 15
-  deliberately unanswerable ones (nothing in the corpus covers them),
-  and 10 cross-document questions requiring facts from two different
-  files.
-- **Run it yourself:** `python evaluation/run_eval.py` — indexes the
-  corpus into a throwaway ChromaDB collection (never touches your real
-  `data/vector_store`), runs all 60 questions, and writes a full
-  per-question breakdown plus a summary to `evaluation/results/`.
-  Works without Ollama running (retrieval-only metrics), and picks up
-  full generation-based metrics automatically if Ollama is running -
-  no flag needed either way. Options: `--top-k`, `--no-hybrid`,
-  `--rerank`, `--retrieval-only`.
-- **Metrics measured** (`evaluation/metrics.py`, unit-tested in
-  isolation): retrieval precision/recall against known-correct
-  (document, page) pairs; citation correctness (do citations point to a
-  real source for that question); a **groundedness proxy** — whether
-  the answer contains the factual keywords it needed to, or correctly
-  declined when it should have; decline accuracy on the no-answer
-  questions; and retrieval/answer latency (p50/p95).
-- **Honest limitation on groundedness**: this is a keyword-presence
-  proxy, not an LLM-as-judge fact-check or a human review. It catches
-  the common failure modes (hallucinated numbers, dodged questions,
-  fabricated answers to no-answer questions) but a model could in
-  principle include the right keywords while still misrepresenting the
-  source in some other way this proxy wouldn't catch. Said plainly here
-  rather than glossed over.
-- **Demo run in this repo** (`evaluation/results/`): since this
-  environment has no network access to Ollama or Hugging Face, the
-  results checked in were produced with a deterministic bag-of-words
-  stand-in embedder instead of the real one — enough to prove the
-  harness's mechanics (indexing, retrieval, metric computation, hybrid
-  vs. semantic-only comparison) work correctly end to end, but **not
-  representative of real embedding-model retrieval quality.** Notably,
-  the hybrid-vs-semantic-only comparison in that demo run shows no
-  difference — that's because the stand-in embedder is itself just
-  word-counting, so it's redundant with BM25 rather than complementary
-  to it, which defeats the point of the comparison. A real embedding
-  model captures paraphrases and synonyms that lexical matching misses,
-  which is precisely where hybrid search is expected to help. **Re-run
-  `python evaluation/run_eval.py` yourself with Ollama running** (Setup
-  steps 1–2) to get real numbers — the harness downloads the real
-  embedding model automatically, same as normal indexing does.
+## 📁 Project Structure
 
-### Phase 11: testing, packaging & release
+```text
+PrivateDocs-AI/
+│
+├── app/
+│   ├── citations/
+│   ├── config/
+│   ├── embeddings/
+│   ├── generation/
+│   ├── ingestion/
+│   ├── retrieval/
+│   ├── storage/
+│   └── ui/
+│
+├── data/
+├── evaluation/
+├── tests/
+├── docs/
+│
+├── .env.example
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+└── run.py
+```
 
-- **Tests**: 132 tests total — unit tests per module, plus a dedicated
-  `tests/test_integration.py` covering the four end-to-end flows the PRD
-  calls out explicitly (upload → extraction → indexing; question →
-  retrieval → generation → citations; summary generation; multiple-
-  document collections), each wiring real components together rather
-  than mocking every neighbor.
-- **A real bug found and fixed during this phase**: the live Streamlit
-  UI was still hardcoding plain semantic-only search for its RAGPipeline,
-  even after Phase 8 built hybrid search and reranking — meaning the
-  running app never actually benefited from either, despite both being
-  fully implemented and tested in isolation. Fixed, and
-  `tests/test_ui_wiring.py` now locks in the fix so it can't silently
-  regress again.
-- **"Clean machine" testing**: every `.py` file in the project
-  compile-checks cleanly; the full pinned `requirements.txt` resolves
-  with no dependency conflicts (`pip check` and a dependency-resolution
-  dry run both pass). A genuine fresh-virtualenv reinstall wasn't
-  possible in the sandbox this was built in (disk constraints), so this
-  is the closest verification available here — if you hit an install
-  issue on your machine that this didn't catch, please open an issue.
-- **Docker packaging** (optional, per the PRD): `Dockerfile` +
-  `docker-compose.yml`, described below. Tesseract is included in the
-  image so OCR works out of the box. **Honest caveat**: this
-  environment has no Docker daemon available, so the image has been
-  carefully reviewed line-by-line and its concrete pieces individually
-  verified (the Streamlit CLI flags and `/_stcore/health` endpoint used
-  in the Dockerfile were checked against the actual installed Streamlit
-  version; the dependency install step was checked via the dry run
-  above) — but it has **not been through an actual `docker build`**.
-  Please try it and report back if something doesn't work.
-- **Screenshots**: `docs/screenshots/` and `docs/architecture.svg` are
-  real files in this repo, not just chat output — but for the same
-  reason as the Docker caveat, the UI screenshot is a pixel-accurate
-  mockup built from the real `streamlit_app.py` code, not a live screen
-  capture. Replace it with a real one once you're running the app.
+## 🚀 Installation
 
-## Docker
-
-Optional, per the PRD (Section 15, Phase 11 lists this as optional).
-Ollama itself is **not** containerized by default — most people already
-have it running on their host machine, and this keeps the image small
-and avoids guessing at GPU passthrough configuration that varies a lot
-by platform.
+### 1. Clone the repository
 
 ```bash
-# 1. Make sure Ollama is running on your host machine (see Setup step 1-2 below)
-ollama serve
+git clone <YOUR-GITHUB-REPOSITORY-URL>
+cd PrivateDocs-AI
+```
 
-# 2. Build and run the app container
+### 2. Create a virtual environment
+
+```powershell
+python -m venv venv
+```
+
+Activate it:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Then activate again:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 3. Install dependencies
+
+```powershell
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+## 🤖 Ollama Setup
+
+Install Ollama from:
+
+```text
+https://ollama.com/
+```
+
+Check Ollama:
+
+```powershell
+ollama list
+```
+
+Download the model:
+
+```powershell
+ollama pull llama3.1:8b
+```
+
+Start Ollama if it is not already running:
+
+```powershell
+ollama serve
+```
+
+Test the model:
+
+```powershell
+ollama run llama3.1:8b
+```
+
+Exit using:
+
+```text
+/bye
+```
+
+## ⚙️ Environment Setup
+
+Copy:
+
+```text
+.env.example
+```
+
+to:
+
+```text
+.env
+```
+
+On Windows:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Default configuration:
+
+```env
+OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=llama3.1:8b
+
+EMBEDDING_MODEL=all-MiniLM-L6-v2
+
+CHUNK_SIZE=800
+CHUNK_OVERLAP=150
+
+TOP_K=5
+
+ENABLE_HYBRID_SEARCH=true
+HYBRID_CANDIDATE_K=20
+RRF_K=60
+
+ENABLE_RERANKING=false
+RERANK_MODEL=cross-encoder/ms-marco-MiniLM-L-6-v2
+RERANK_CANDIDATE_K=20
+
+DOCUMENTS_DIR=data/documents
+VECTOR_STORE_DIR=data/vector_store
+
+ENABLE_OCR=true
+OCR_LANGUAGE=eng
+OCR_DPI=300
+
+PRIVACY_MODE=local_only
+```
+
+## ▶️ Run the Project
+
+Activate the virtual environment:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Run:
+
+```powershell
+python run.py
+```
+
+Or:
+
+```powershell
+python -m streamlit run app/ui/streamlit_app.py
+```
+
+Open:
+
+```text
+http://localhost:8501
+```
+
+## 📖 How to Use
+
+1. Start Ollama.
+2. Run `python run.py`.
+3. Upload one or more PDFs.
+4. Let PrivateDocs AI extract and index the documents.
+5. Select the document collection.
+6. Ask a question.
+7. Review the generated answer with page citations.
+8. Use the summarization tab to generate document summaries.
+
+## 🔍 Hybrid Retrieval
+
+PrivateDocs AI combines semantic and keyword retrieval.
+
+### Semantic Search
+
+Semantic search understands the meaning of a query using embeddings.
+
+For example:
+
+```text
+Query:
+"What are the rules for returning an item?"
+
+Relevant text:
+"Customers can request a refund within 30 days..."
+```
+
+### BM25 Keyword Search
+
+BM25 is useful for exact terms such as:
+
+```text
+Invoice IDs
+Employee IDs
+Product codes
+Names
+Acronyms
+Technical terms
+```
+
+### Reciprocal Rank Fusion
+
+Results from semantic search and BM25 are merged using Reciprocal Rank Fusion before being passed to the RAG pipeline.
+
+## 🎯 Optional Reranking
+
+Enable reranking in `.env`:
+
+```env
+ENABLE_RERANKING=true
+```
+
+This can improve retrieval accuracy but may increase query processing time.
+
+## 🔒 Privacy
+
+PrivateDocs AI uses a local-first architecture.
+
+By default:
+
+```env
+PRIVACY_MODE=local_only
+```
+
+This means:
+
+* PDFs remain on the local machine.
+* Embeddings are generated locally.
+* ChromaDB data stays local.
+* Ollama runs the LLM locally.
+* No external LLM API key is required.
+
+The embedding and reranking models may require internet access during their first download.
+
+## 🖼️ OCR
+
+PrivateDocs AI supports OCR for scanned PDFs using Tesseract.
+
+After installing Tesseract, verify it with:
+
+```powershell
+tesseract --version
+```
+
+Normal text-based PDFs can still be processed without OCR.
+
+## 🧪 Testing
+
+Run:
+
+```powershell
+pytest tests/ -v
+```
+
+The project includes tests for:
+
+* PDF ingestion
+* Chunking
+* OCR
+* Indexing
+* Semantic retrieval
+* Keyword search
+* Hybrid retrieval
+* Reranking
+* Citations
+* Prompt generation
+* RAG pipeline
+* Summarization
+* UI integration
+
+## 📊 Evaluation
+
+Run the evaluation workflow with:
+
+```powershell
+python evaluation/run_eval.py
+```
+
+The evaluation system can measure areas such as:
+
+* Retrieval accuracy
+* Citation correctness
+* Groundedness
+* No-answer handling
+* Response latency
+
+## 🐳 Docker
+
+Docker support is included.
+
+Run:
+
+```bash
 docker compose up --build
 ```
 
-The app will be reachable at `http://localhost:8501`. Documents and the
-vector store persist in `./data` on your host (mounted as a volume), so
-they survive a container rebuild.
+Then open:
 
-If you'd rather run Ollama in its own container too, `docker-compose.yml`
-has that option commented out with instructions - see the file itself.
+```text
+http://localhost:8501
+```
 
-Config (top-k, hybrid search, reranking, OCR, etc.) is passed through as
-environment variables in `docker-compose.yml`, reading the same `.env`
-conventions as running the app directly - see `.env.example` for the
-full list.
+## 🛠️ Common Errors
 
-## Troubleshooting
+### Streamlit not installed
 
-**"Ollama connection refused" / red status in the sidebar**
-Make sure `ollama serve` is running in its own terminal (Setup step 2).
-If you're in Docker, check `OLLAMA_HOST` is reachable from inside the
-container — on Linux this needs the `extra_hosts` entry in
-`docker-compose.yml`, already included by default.
+```powershell
+python -m pip install streamlit
+```
 
-**First PDF upload is slow / seems to hang**
-Expected the very first time: the embedding model (~80MB) downloads
-from Hugging Face on first use. Needs internet for that one time only;
-everything after is fully offline. Check your terminal for download
-progress.
+### Sentence Transformers not installed
 
-**"This looks like a scanned PDF, and OCR couldn't run..."**
-Tesseract isn't installed. See Setup step 2a, or set `ENABLE_OCR=false`
-in `.env` if you don't need OCR and just want the error to say so more
-plainly.
+```powershell
+python -m pip install sentence-transformers==3.1.1
+```
 
-**Tests fail on a fresh clone**
-Run `pip install -r requirements.txt` first (obvious, but the most
-common cause). If a specific test fails and it's not obviously
-environment-related, please open an issue with the full `pytest -v`
-output.
+### ChromaDB not installed
 
-**Answers seem to ignore an obviously-relevant document**
-Check the sidebar's "Collection" dropdown — documents are scoped per
-collection, and a question only searches the currently-selected one.
-Also check `.env`'s `TOP_K` and the relevance threshold constants in
-`app/generation/rag_pipeline.py` if answers are being declined when
-they shouldn't be (see that file's comments on tuning them for your
-actual embedding model/corpus).
+```powershell
+python -m pip install chromadb==0.5.5
+```
 
-## Setup
+### Ollama connection error
 
-1. **Install Ollama** (if you haven't already): https://ollama.com
-2. **Pull the model:**
-   ```bash
-   ollama pull llama3.1:8b
-   ollama serve
-   ```
-   (leave this running in a terminal - it's the local LLM server)
+Check:
 
-2a. **Install Tesseract** (for OCR on scanned PDFs - optional but recommended):
-   ```bash
-   # macOS
-   brew install tesseract
-   # Ubuntu/Debian
-   sudo apt-get install tesseract-ocr
-   # Windows: https://github.com/UB-Mannheim/tesseract/wiki
-   ```
-   If you skip this, the app still works fine for normal (non-scanned)
-   PDFs - scanned documents will just get a clear "install Tesseract"
-   error instead of being indexed.
-3. **Set up the Python environment:**
-   ```bash
-   cd PrivateDocs-AI
-   python3 -m venv venv
-   source venv/bin/activate   # Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-4. **Copy the env file:**
-   ```bash
-   cp .env.example .env
-   ```
-   Defaults should work as-is. Adjust `OLLAMA_MODEL` if you pulled a
-   different model.
-5. **Run the tests** (132 tests, should all pass in under 20 seconds):
-   ```bash
-   pytest tests/ -v
-   ```
-6. **Launch the app:**
-   ```bash
-   python run.py
-   ```
-   This opens the Streamlit UI in your browser (usually `localhost:8501`).
-7. **(Optional) Run the evaluation suite** to see retrieval/answer
-   quality metrics against a real corpus:
-   ```bash
-   python evaluation/run_eval.py
-   ```
-   See the "Phase 10: evaluation" section above for what it measures.
+```powershell
+ollama list
+```
 
-## First run notes
+Then:
 
-- The **first time** you upload a PDF, `sentence-transformers` will
-  download the embedding model (~80MB) from Hugging Face. This needs
-  internet access once; after that, everything runs fully offline.
-- Check the sidebar's Ollama status indicator - if it's red, make sure
-  `ollama serve` is running in another terminal.
-- Try uploading 1-2 PDFs first, ask a question you know the answer to,
-  and check that the citation (filename + page number) actually points
-  to the right place.
+```powershell
+ollama pull llama3.1:8b
+```
 
-## What to test / feedback that's useful
+Test:
 
-- Does a real question against a real PDF return a sensible, grounded
-  answer with a correct page citation?
-- Does the app correctly decline ("I don't have enough information...")
-  when you ask something unrelated to the uploaded documents?
-- How does answer quality feel with `llama3.1:8b`? If it's slow or the
-  quality feels off, that's useful signal for whether to try a smaller
-  or larger model.
-- Any UI rough edges in the Upload / Ask / Summarize tabs.
+```powershell
+ollama run llama3.1:8b
+```
 
-## Architecture
+### Port `11434` already in use
 
-![Pipeline architecture](docs/architecture.svg)
+If `ollama serve` returns:
 
-## Project structure
+```text
+bind: Only one usage of each socket address...
+```
 
-See `app/` for the pipeline modules (ingestion, embeddings, storage,
-retrieval, generation, citations, ui, config) and `tests/` for the test
-suite (132 tests as of this point, covering every module above except
-the parts requiring live Ollama/Hugging Face network access, which are
-tested with mocks/fakes instead).
+Ollama is already running.
+
+Do not start another Ollama server.
+
+Continue with:
+
+```powershell
+ollama list
+python run.py
+```
+
+## 🌐 Deployment
+
+The default version depends on a local Ollama server, so it cannot be deployed directly like a static Netlify application.
+
+Possible deployment options include:
+
+* Streamlit Community Cloud
+* Render
+* Railway
+* Hugging Face Spaces
+* Docker VPS/cloud server
+
+For public cloud deployment, the local Ollama component may need to be replaced with or connected to a hosted LLM service.
+
+## 🔮 Future Improvements
+
+* DOCX support
+* TXT support
+* PPTX support
+* CSV support
+* Conversational memory
+* Chat history
+* Document comparison
+* Table-aware PDF extraction
+* Improved OCR
+* Metadata filtering
+* Advanced reranking
+* Hosted LLM fallback
+* Authentication
+* Export summaries
+* Export answers
+* Analytics dashboard
+
+## 🎯 Real-World Applications
+
+PrivateDocs AI can be useful for:
+
+* 📚 Students searching textbooks and notes
+* 🔬 Researchers analyzing papers
+* 👨‍💻 Developers searching documentation
+* 🏢 Organizations working with internal documents
+* 📑 Professionals analyzing reports
+* 🔐 Privacy-sensitive document analysis
+
+## 📌 Project Goal
+
+PrivateDocs AI demonstrates how **Retrieval-Augmented Generation, local embeddings, vector databases, hybrid retrieval, OCR, and local LLMs** can be combined into a practical privacy-focused document intelligence system.
+
+## 🤝 Contributing
+
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Commit the changes.
+5. Open a pull request.
+
+## ⭐ Support
+
+If you find this project useful, consider starring the repository.
+
+---
+
+**Built with Python, Streamlit, Sentence Transformers, ChromaDB, LangChain, BM25, and Ollama.**
