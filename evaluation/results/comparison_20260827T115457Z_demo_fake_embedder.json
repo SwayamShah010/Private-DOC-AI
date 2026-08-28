@@ -1,0 +1,38 @@
+{
+  "timestamp": "20260827T115457Z",
+  "note": "DEMO comparison using fake bag-of-words embedder (no network in this sandbox) - proves the hybrid-vs-semantic-only comparison mechanics work; real numbers will differ with the actual embedding model.",
+  "comparison": [
+    {
+      "label": "semantic-only, top_k=5",
+      "top_k": 5,
+      "use_hybrid": false,
+      "mean_precision": 0.24444444444444444,
+      "mean_recall": 1.0,
+      "retrieval_p50_ms": 2.944321999962085
+    },
+    {
+      "label": "hybrid, top_k=5",
+      "top_k": 5,
+      "use_hybrid": true,
+      "mean_precision": 0.24444444444444444,
+      "mean_recall": 1.0,
+      "retrieval_p50_ms": 5.4699840000012045
+    },
+    {
+      "label": "semantic-only, top_k=3",
+      "top_k": 3,
+      "use_hybrid": false,
+      "mean_precision": 0.4074074074074074,
+      "mean_recall": 1.0,
+      "retrieval_p50_ms": 2.8917109999611057
+    },
+    {
+      "label": "hybrid, top_k=3",
+      "top_k": 3,
+      "use_hybrid": true,
+      "mean_precision": 0.4074074074074074,
+      "mean_recall": 1.0,
+      "retrieval_p50_ms": 5.539429999998902
+    }
+  ]
+}

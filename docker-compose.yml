@@ -1,0 +1,45 @@
+# PrivateDocs AI - docker-compose
+#
+# Two ways to provide Ollama, pick one:
+#
+#   A) Ollama already running on your host machine (the common case if
+#      you followed the main README setup) - this is the default below.
+#      `host.docker.internal` is how a container reaches the host; on
+#      Linux this needs the extra_hosts line, Docker Desktop (Mac/
+#      Windows) supports it natively.
+#
+#   B) Ollama as its own container too - uncomment the `ollama` service
+#      below and change OLLAMA_HOST to `http://ollama:11434`. Note this
+#      profile has no GPU passthrough configured (add `deploy.resources.
+#      reservations.devices` with the nvidia driver if you have a GPU and
+#      want to use it - see Docker's GPU docs, this varies by platform
+#      enough that we didn't want to guess wrong for you here).
+#
+# Usage: docker compose up --build
+
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.1:8b}
+      - ENABLE_HYBRID_SEARCH=${ENABLE_HYBRID_SEARCH:-true}
+      - ENABLE_RERANKING=${ENABLE_RERANKING:-false}
+      - ENABLE_OCR=${ENABLE_OCR:-true}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # needed on Linux; harmless no-op elsewhere
+
+  # --- Option B: uncomment to run Ollama as a container too ---
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_data:/root/.ollama
+
+# volumes:
+#   ollama_data:

@@ -1,0 +1,2633 @@
+{
+  "timestamp": "20260827T115433Z",
+  "config": {
+    "top_k": 5,
+    "use_hybrid": true,
+    "use_rerank": false
+  },
+  "note": "DEMO RUN using a deterministic bag-of-words fake embedder (sandbox has no network access to Hugging Face). Validates harness mechanics, NOT representative of real all-MiniLM-L6-v2 embedding quality. Run with a real Ollama + real embedding model for production numbers.",
+  "summary": {
+    "total_questions": 60,
+    "known_answer_count": 35,
+    "no_answer_count": 15,
+    "cross_document_count": 10,
+    "mean_precision": 0.24444444444444444,
+    "mean_recall": 1.0,
+    "decline_accuracy": 0.0,
+    "false_decline_rate": 0.0,
+    "citation_correctness_rate": 0.0,
+    "groundedness_rate": 0.0,
+    "retrieval_latency_p50_ms": 5.094610999890392,
+    "retrieval_latency_p95_ms": 5.60958699998082,
+    "answer_latency_p50_ms": 0.0,
+    "answer_latency_p95_ms": 0.0,
+    "generation_skipped_count": 60
+  },
+  "results": [
+    {
+      "id": "q001",
+      "category": "known_answer",
+      "question": "How many days of paid vacation do full-time employees accrue per year?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 6.669441999974879,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q002",
+      "category": "known_answer",
+      "question": "After how many years of service does the vacation accrual rate increase, and what does it increase to?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.733416999987639,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q003",
+      "category": "known_answer",
+      "question": "How far in advance must vacation requests be submitted?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.587923000007322,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q004",
+      "category": "known_answer",
+      "question": "How many paid sick days do employees get per calendar year?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.516274000001431,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q005",
+      "category": "known_answer",
+      "question": "Do unused sick days roll over to the next year?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.60958699998082,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q006",
+      "category": "known_answer",
+      "question": "After how many consecutive sick days is a doctor's note required?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.548828000087269,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q007",
+      "category": "known_answer",
+      "question": "How many days per week can employees work remotely with manager approval?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.374856000003092,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q008",
+      "category": "known_answer",
+      "question": "Who needs to approve a fully remote work arrangement?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.257878999941568,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q009",
+      "category": "known_answer",
+      "question": "What are the core hours remote employees must be reachable during?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.39007399993352,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q010",
+      "category": "known_answer",
+      "question": "How many days of written notice must an employee give when resigning?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.43834000006882,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q011",
+      "category": "known_answer",
+      "question": "How much notice (or pay in lieu) does the company give when it terminates an employee?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.571421000013288,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q012",
+      "category": "known_answer",
+      "question": "By what date must employees complete annual ethics training?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.35503499997958,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q013",
+      "category": "known_answer",
+      "question": "What is the warranty period for the Acme Widget Pro?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.997091999939585,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q014",
+      "category": "known_answer",
+      "question": "What does the Acme Widget Pro warranty cover?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.988786000012624,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q015",
+      "category": "known_answer",
+      "question": "How long are charging cables and power adapters covered under warranty?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.995465000092736,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q016",
+      "category": "known_answer",
+      "question": "Does the Acme Widget Pro warranty cover water damage?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.95656299995062,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q017",
+      "category": "known_answer",
+      "question": "What email address should I contact to file a warranty claim?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.215902999907485,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q018",
+      "category": "known_answer",
+      "question": "How many business days does it typically take to resolve an approved warranty claim?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.880236999952103,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q019",
+      "category": "known_answer",
+      "question": "What is the warranty period outside the United States and Canada?",
+      "expected_sources": [
+        [
+          "product_warranty.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.826414000011937,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q020",
+      "category": "known_answer",
+      "question": "What was Acme Corp's Q3 2026 revenue?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.034555999941404,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q021",
+      "category": "known_answer",
+      "question": "What percentage of Q3 2026 revenue came from subscriptions?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.855766999980915,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q022",
+      "category": "known_answer",
+      "question": "How much did Q3 2026 revenue grow year-over-year?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.141987000001791,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q023",
+      "category": "known_answer",
+      "question": "What were Acme's total operating expenses in Q3 2026?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.989865000084137,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q024",
+      "category": "known_answer",
+      "question": "How much did Acme spend on R&D in Q3 2026?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.001497999955973,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q025",
+      "category": "known_answer",
+      "question": "How many full-time employees did Acme have at the end of Q3 2026?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.045789999940098,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q026",
+      "category": "known_answer",
+      "question": "Which department is the largest at Acme, and how many people work in it?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.335973000001104,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q027",
+      "category": "known_answer",
+      "question": "What Q4 2026 revenue range does management expect?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.2269620000515715,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q028",
+      "category": "known_answer",
+      "question": "How many characters long must employee passwords be at minimum?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.939611000054356,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q029",
+      "category": "known_answer",
+      "question": "How often must passwords be rotated?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.008803999999145,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q030",
+      "category": "known_answer",
+      "question": "What authentication is required to access production systems?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.926516999944397,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q031",
+      "category": "known_answer",
+      "question": "How often is production system access reviewed?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.89240100000643,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q032",
+      "category": "known_answer",
+      "question": "Within how many hours must a security incident be reported after discovery?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.090031999998246,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q033",
+      "category": "known_answer",
+      "question": "Within how many hours will the incident response team triage a reported incident?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.376052999963576,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q034",
+      "category": "known_answer",
+      "question": "How long is customer data retained after account closure?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.6072410000069794,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "q035",
+      "category": "known_answer",
+      "question": "How long are system backup logs retained?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.123265000065658,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n001",
+      "category": "no_answer",
+      "question": "What is Acme Corp's policy on parental leave?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.603139999948326,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n002",
+      "category": "no_answer",
+      "question": "Does Acme offer a 401k employer match, and if so how much?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.410102999917399,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n003",
+      "category": "no_answer",
+      "question": "Who is the CEO of Acme Corp?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.328096999960508,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n004",
+      "category": "no_answer",
+      "question": "What is Acme Corp's stock ticker symbol?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.094610999890392,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n005",
+      "category": "no_answer",
+      "question": "What operating system does the Acme Widget Pro run?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 4.997821999950247,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n006",
+      "category": "no_answer",
+      "question": "What is the warranty period for the Acme Widget Pro Max?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.123668999999609,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n007",
+      "category": "no_answer",
+      "question": "How many vacation days do part-time employees receive?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.524724999986574,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n008",
+      "category": "no_answer",
+      "question": "What was Acme Corp's revenue in Q2 2026?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 4.963743000075738,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n009",
+      "category": "no_answer",
+      "question": "What encryption algorithm does Acme use to protect data at rest?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.081086000018331,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n010",
+      "category": "no_answer",
+      "question": "Does Acme's health insurance plan cover dental and vision?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.244582999921477,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n011",
+      "category": "no_answer",
+      "question": "What is the maximum weight the Acme Widget Pro can support?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.307545000050595,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n012",
+      "category": "no_answer",
+      "question": "How many members are on Acme's board of directors?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          5
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 4.9548470000218,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n013",
+      "category": "no_answer",
+      "question": "What color options are available for the Acme Widget Pro?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.0236360000326385,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n014",
+      "category": "no_answer",
+      "question": "What was Acme's net profit margin in Q3 2026?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.245140999932119,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "n015",
+      "category": "no_answer",
+      "question": "Does Acme require background checks for new hires?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "retrieval_latency_ms": 5.091391000064505,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c001",
+      "category": "cross_document",
+      "question": "How many days of vacation do employees accrue per year, and separately, what is the Acme Widget Pro's warranty period?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.033176999972966,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c002",
+      "category": "cross_document",
+      "question": "How many full-time employees did Acme have at the end of Q3 2026, and how often must employee passwords be rotated?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          5
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.057198000031349,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c003",
+      "category": "cross_document",
+      "question": "What was Acme's Q3 2026 revenue, and what is the international warranty coverage period for the Widget Pro?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.000124999924083,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c004",
+      "category": "cross_document",
+      "question": "How many days of notice must a resigning employee give, and how many business days does a warranty claim typically take to resolve?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.070695999961572,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c005",
+      "category": "cross_document",
+      "question": "Within how many hours must a security incident be reported, and how many paid sick days do employees get per year?",
+      "expected_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "hr_policy.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.972728999973697,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c006",
+      "category": "cross_document",
+      "question": "How much did Acme spend on R&D in Q3 2026, and how long is customer data retained after account closure?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "security_policy.pdf",
+          4
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 5.109600999958275,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c007",
+      "category": "cross_document",
+      "question": "How many days per week can employees work remotely, and how long are Widget Pro accessories covered under warranty?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "hr_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.965917000049558,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c008",
+      "category": "cross_document",
+      "question": "What is Acme's expected Q4 2026 revenue range, and how often is production access reviewed by the security team?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "security_policy.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "security_policy.pdf",
+          2
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          3
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.948257000023659,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c009",
+      "category": "cross_document",
+      "question": "What percentage of Acme's Q3 2026 revenue was from subscriptions, and how many characters minimum must an employee password be?",
+      "expected_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "q3_financial_report.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          3
+        ],
+        [
+          "security_policy.pdf",
+          1
+        ],
+        [
+          "q3_financial_report.pdf",
+          4
+        ],
+        [
+          "q3_financial_report.pdf",
+          2
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.6618179999313725,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    },
+    {
+      "id": "c010",
+      "category": "cross_document",
+      "question": "After how many years does the vacation accrual rate increase, and what does the Acme Widget Pro warranty exclude?",
+      "expected_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ]
+      ],
+      "retrieved_sources": [
+        [
+          "hr_policy.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          1
+        ],
+        [
+          "product_warranty.pdf",
+          2
+        ],
+        [
+          "product_warranty.pdf",
+          4
+        ],
+        [
+          "product_warranty.pdf",
+          3
+        ]
+      ],
+      "precision": 0.4,
+      "recall": 1.0,
+      "retrieval_latency_ms": 4.77009199994427,
+      "generation_skipped": true,
+      "declined": null,
+      "answer_text": null,
+      "citation_sources": [],
+      "citation_correctness": null,
+      "grounded": null,
+      "answer_latency_ms": null,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# --- Core ---
+python-dotenv==1.0.1
+
+# --- UI (Phase 7) ---
+streamlit==1.38.0
+
+# --- PDF parsing (Phase 2) ---
+pymupdf==1.24.10          # a.k.a. "fitz" - fast, reliable PDF text/page extraction
+
+# --- Chunking / RAG framework (Phase 3-5) ---
+langchain==0.3.1
+langchain-community==0.3.1
+langchain-text-splitters==0.3.0
+
+# --- Embeddings (Phase 3) ---
+sentence-transformers==3.1.1   # local Hugging Face embedding models, no API key needed
+
+# --- Vector database (Phase 3-4) ---
+chromadb==0.5.5
+
+# --- Hybrid keyword search / reranking (Phase 8) ---
+rank_bm25==0.2.2         # pure-Python BM25, no model download, powers keyword search
+                          # cross-encoder reranking (optional, ENABLE_RERANKING) reuses
+                          # sentence-transformers' CrossEncoder - no extra package needed
+
+# --- Local LLM client (Phase 5) ---
+ollama==0.3.3              # talks to your local Ollama server (http://localhost:11434)
+
+# --- OCR (Phase 9) ---
+pytesseract==0.3.13      # wraps the Tesseract OCR engine (separate system install - see README)
+pillow>=10.0.0           # image handling between PyMuPDF's rasterizer and pytesseract
+
+# --- Testing (Phase 11) ---
+pytest==8.3.3
+pytest-mock==3.14.0

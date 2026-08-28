@@ -1,0 +1,123 @@
+<svg viewBox="0 0 980 620" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .box { fill: #f5f7fa; stroke: #4a5568; stroke-width: 1.5; rx: 8; }
+    .box-accent { fill: #e6f0ff; stroke: #2b6cb0; stroke-width: 1.5; rx: 8; }
+    .box-external { fill: #fff5e6; stroke: #c05621; stroke-width: 1.5; stroke-dasharray: 5,3; rx: 8; }
+    .label { font-size: 13px; fill: #1a202c; text-anchor: middle; }
+    .sublabel { font-size: 10px; fill: #4a5568; text-anchor: middle; }
+    .phase { font-size: 9px; fill: #718096; text-anchor: middle; font-style: italic; }
+    .arrow { stroke: #4a5568; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .arrow-dashed { stroke: #718096; stroke-width: 1.2; fill: none; stroke-dasharray: 4,3; marker-end: url(#arrowhead); }
+    .section-title { font-size: 12px; fill: #2d3748; font-weight: bold; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#4a5568"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="620" fill="white" rx="8"/>
+  <text x="20" y="25" class="section-title">PrivateDocs AI — Pipeline Architecture</text>
+
+  <!-- Ingestion row -->
+  <text x="150" y="55" class="section-title">Ingestion</text>
+  <rect x="20" y="65" width="120" height="50" class="box" rx="8"/>
+  <text x="80" y="86" class="label">PDF Upload</text>
+  <text x="80" y="100" class="sublabel">Streamlit UI</text>
+
+  <rect x="170" y="65" width="130" height="50" class="box" rx="8"/>
+  <text x="235" y="86" class="label">Extraction</text>
+  <text x="235" y="100" class="sublabel">PyMuPDF, per-page</text>
+
+  <rect x="330" y="65" width="130" height="50" class="box-accent" rx="8"/>
+  <text x="395" y="83" class="label">OCR Fallback</text>
+  <text x="395" y="96" class="sublabel">Tesseract, if page is</text>
+  <text x="395" y="107" class="sublabel">empty (Phase 9)</text>
+
+  <rect x="490" y="65" width="120" height="50" class="box" rx="8"/>
+  <text x="550" y="86" class="label">Chunking</text>
+  <text x="550" y="100" class="sublabel">page-aware, overlapped</text>
+
+  <path class="arrow" d="M140,90 L168,90"/>
+  <path class="arrow" d="M300,90 L328,90"/>
+  <path class="arrow" d="M460,90 L488,90"/>
+
+  <!-- Storage row -->
+  <text x="150" y="170" class="section-title">Storage</text>
+  <rect x="330" y="180" width="130" height="50" class="box" rx="8"/>
+  <text x="395" y="201" class="label">Embedder</text>
+  <text x="395" y="215" class="sublabel">all-MiniLM-L6-v2</text>
+
+  <rect x="490" y="180" width="130" height="50" class="box" rx="8"/>
+  <text x="555" y="198" class="label">Vector Store</text>
+  <text x="555" y="212" class="sublabel">ChromaDB</text>
+  <text x="555" y="223" class="sublabel">(per collection)</text>
+
+  <rect x="650" y="180" width="130" height="50" class="box" rx="8"/>
+  <text x="715" y="198" class="label">BM25 Index</text>
+  <text x="715" y="212" class="sublabel">rank_bm25</text>
+  <text x="715" y="223" class="sublabel">(Phase 8, keyword)</text>
+
+  <path class="arrow" d="M550,115 L550,145 L395,145 L395,178"/>
+  <path class="arrow" d="M460,205 L488,205"/>
+  <path class="arrow-dashed" d="M550,145 L715,145 L715,178"/>
+
+  <!-- Retrieval row -->
+  <text x="150" y="290" class="section-title">Retrieval (Phase 8)</text>
+  <rect x="490" y="300" width="130" height="50" class="box-accent" rx="8"/>
+  <text x="555" y="318" class="label">Hybrid Search</text>
+  <text x="555" y="332" class="sublabel">Reciprocal Rank Fusion</text>
+  <text x="555" y="343" class="sublabel">semantic + keyword</text>
+
+  <rect x="650" y="300" width="130" height="50" class="box-accent" rx="8"/>
+  <text x="715" y="318" class="label">Reranker</text>
+  <text x="715" y="331" class="sublabel">cross-encoder</text>
+  <text x="715" y="342" class="sublabel">(optional, off by default)</text>
+
+  <path class="arrow" d="M555,230 L555,298"/>
+  <path class="arrow" d="M715,230 L715,298"/>
+  <path class="arrow-dashed" d="M620,325 L648,325"/>
+
+  <!-- Generation row -->
+  <text x="150" y="410" class="section-title">Generation</text>
+  <rect x="330" y="420" width="140" height="60" class="box" rx="8"/>
+  <text x="400" y="440" class="label">RAG Pipeline</text>
+  <text x="400" y="454" class="sublabel">relevance gate,</text>
+  <text x="400" y="465" class="sublabel">prompt builder</text>
+
+  <rect x="330" y="510" width="140" height="50" class="box-external" rx="8"/>
+  <text x="400" y="530" class="label">Ollama</text>
+  <text x="400" y="544" class="sublabel">local LLM server</text>
+
+  <rect x="510" y="420" width="140" height="60" class="box" rx="8"/>
+  <text x="580" y="440" class="label">Citation Mapper</text>
+  <text x="580" y="454" class="sublabel">chunk metadata to</text>
+  <text x="580" y="465" class="sublabel">file + page</text>
+
+  <rect x="690" y="420" width="130" height="60" class="box" rx="8"/>
+  <text x="755" y="440" class="label">Cited Answer</text>
+  <text x="755" y="454" class="sublabel">shown in chat,</text>
+  <text x="755" y="465" class="sublabel">sources expandable</text>
+
+  <path class="arrow" d="M555,350 L555,385 L400,385 L400,418"/>
+  <path class="arrow" d="M715,350 L715,385 L400,385"/>
+  <path class="arrow" d="M385,480 L385,508"/>
+  <path class="arrow" d="M415,510 L415,482" marker-end="url(#arrowhead)"/>
+  <text x="450" y="500" class="sublabel" text-anchor="start">prompt / response</text>
+  <path class="arrow" d="M470,450 L508,450"/>
+  <path class="arrow" d="M650,450 L688,450"/>
+
+  <!-- Summarizer branch -->
+  <rect x="150" y="420" width="140" height="60" class="box" rx="8"/>
+  <text x="220" y="440" class="label">Summarizer</text>
+  <text x="220" y="454" class="sublabel">full-document,</text>
+  <text x="220" y="465" class="sublabel">no retrieval needed</text>
+  <path class="arrow" d="M555,230 L555,270 L220,270 L220,418"/>
+  <path class="arrow" d="M290,450 L328,450"/>
+
+  <!-- Legend -->
+  <rect x="20" y="580" width="14" height="14" class="box-accent" rx="8"/>
+  <text x="40" y="591" class="sublabel" text-anchor="start">Phase 8/9 addition</text>
+  <rect x="190" y="580" width="14" height="14" class="box-external" rx="8"/>
+  <text x="210" y="591" class="sublabel" text-anchor="start">External process (not in this repo)</text>
+</svg>
